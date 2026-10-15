@@ -1,0 +1,17 @@
+{
+  "total_matriculados": 29010,
+  "anio": 2026,
+  "columnas_filtro": [
+    "Sexo",
+    "Sede",
+    "Facultad",
+    "Area Conocimiento",
+    "Nombre Programa",
+    "Modalidad",
+    "Tipo Programa",
+    "Tipo Inscripcion",
+    "Id Estrato",
+    "Ciudad Nacimiento",
+    "Pais Nacimiento"
+  ]
+}

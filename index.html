@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dashboard Matriculados 2026</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar__title">
+    <h1>Dashboard de Matriculados</h1>
+    <span class="topbar__sub">Cohorte 2026</span>
+  </div>
+  <div class="topbar__right">
+    <span id="contadorFiltrados" class="topbar__contador">29.010 estudiantes</span>
+    <button id="btnFiltros" class="btn-filtros" aria-expanded="false">
+      Filtros <span id="badgeFiltros" class="badge-filtros" hidden>0</span>
+    </button>
+  </div>
+</header>
+
+<div id="overlayFiltros" class="overlay" hidden></div>
+<aside id="panelFiltros" class="panel-filtros" aria-hidden="true">
+  <div class="panel-filtros__header">
+    <h2>Filtrar datos</h2>
+    <button id="btnCerrarFiltros" class="btn-cerrar" aria-label="Cerrar filtros">✕</button>
+  </div>
+
+  <div class="panel-filtros__body" id="contenedorFiltros">
+    <!-- Los <select multiple> de cada columna se generan por JS en filtros.js -->
+  </div>
+
+  <div class="panel-filtros__footer">
+    <button id="btnLimpiar" class="btn-secundario">Limpiar filtros</button>
+    <button id="btnAplicar" class="btn-primario">Aplicar</button>
+  </div>
+</aside>
+
+<main>
+
+  <section id="resumen" class="seccion">
+    <h2 class="seccion__titulo">Resumen general</h2>
+    <p class="seccion__subtitulo">Estos valores se recalculan según los filtros aplicados.</p>
+    <div class="kpis" id="gridKpis">
+      <div class="kpi"><span class="kpi__num" id="kpiTotal">—</span><span class="kpi__label">Matriculados</span></div>
+      <div class="kpi"><span class="kpi__num" id="kpiMujeres">—</span><span class="kpi__label">% Mujeres</span></div>
+      <div class="kpi"><span class="kpi__num" id="kpiPregrado">—</span><span class="kpi__label">% Pregrado</span></div>
+      <div class="kpi"><span class="kpi__num" id="kpiPresencial">—</span><span class="kpi__label">% Presencial</span></div>
+      <div class="kpi"><span class="kpi__num" id="kpiFacultadTop">—</span><span class="kpi__label">Facultad con más matriculados</span></div>
+    </div>
+  </section>
+
+  <section id="demografia" class="seccion">
+    <h2 class="seccion__titulo">Perfil demográfico</h2>
+    <p class="seccion__subtitulo">Distribución por sexo y estrato socioeconómico.</p>
+    <div class="grid-charts grid-charts--2">
+      <div class="chart-card">
+        <h3>Sexo</h3>
+        <canvas id="chartSexo"></canvas>
+        <ul class="chart-card__leyenda" id="leyendaSexo"></ul>
+      </div>
+      <div class="chart-card">
+        <h3>Estrato socioeconómico</h3>
+        <canvas id="chartEstrato"></canvas>
+        <ul class="chart-card__leyenda" id="leyendaEstrato"></ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="academico" class="seccion">
+    <h2 class="seccion__titulo">Perfil académico</h2>
+    <p class="seccion__subtitulo">Facultades, áreas del conocimiento y modalidad de estudio.</p>
+    <div class="grid-charts grid-charts--2">
+      <div class="chart-card">
+        <h3>Facultad</h3>
+        <canvas id="chartFacultad"></canvas>
+        <ul class="chart-card__leyenda" id="leyendaFacultad"></ul>
+      </div>
+      <div class="chart-card">
+        <h3>Área del conocimiento</h3>
+        <canvas id="chartArea"></canvas>
+        <ul class="chart-card__leyenda" id="leyendaArea"></ul>
+      </div>
+      <div class="chart-card">
+        <h3>Modalidad</h3>
+        <canvas id="chartModalidad"></canvas>
+        <ul class="chart-card__leyenda" id="leyendaModalidad"></ul>
+      </div>
+      <div class="chart-card">
+        <h3>Tipo de programa</h3>
+        <canvas id="chartTipoPrograma"></canvas>
+        <ul class="chart-card__leyenda" id="leyendaTipoPrograma"></ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="programas" class="seccion">
+    <h2 class="seccion__titulo">Programas y sedes</h2>
+    <p class="seccion__subtitulo">Los 10 programas y las 10 sedes con más matriculados, según el filtro aplicado.</p>
+    <div class="grid-charts grid-charts--2">
+      <div class="chart-card chart-card--alta">
+        <h3>Top 10 programas</h3>
+        <canvas id="chartProgramas"></canvas>
+      </div>
+      <div class="chart-card chart-card--alta">
+        <h3>Top 10 sedes</h3>
+        <canvas id="chartSedes"></canvas>
+      </div>
+    </div>
+  </section>
+
+  <section id="origen" class="seccion">
+    <h2 class="seccion__titulo">Origen de los estudiantes</h2>
+    <p class="seccion__subtitulo">Top 10 ciudades y países de nacimiento.</p>
+    <div class="grid-charts grid-charts--2">
+      <div class="chart-card chart-card--alta">
+        <h3>Top 10 ciudades de nacimiento</h3>
+        <canvas id="chartCiudades"></canvas>
+      </div>
+      <div class="chart-card chart-card--alta">
+        <h3>Top 10 países de nacimiento</h3>
+        <canvas id="chartPaises"></canvas>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <p>Fuente: matriculados 2026, limpiados y procesados con Python (pandas). Filtros y gráficas calculados en el navegador.</p>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js"></script>
+<script src="js/datos.js"></script>
+<script src="js/filtros.js"></script>
+<script src="js/graficas.js"></script>
+</body>
+</html>

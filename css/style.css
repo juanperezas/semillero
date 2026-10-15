@@ -1,0 +1,78 @@
+:root{
+  --blanco:#ffffff;
+  --negro:#15181c;
+  --gris-texto:#4a525c;
+  --gris-borde:#e4e8ec;
+  --gris-fondo:#f6f8fa;
+  --azul:#2f6fed;
+  --azul-claro:#eaf2ff;
+  --azul-medio:#7aa7f0;
+  font-family:'Segoe UI',system-ui,-apple-system,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--gris-fondo);color:var(--negro);line-height:1.5}
+h1,h2,h3{font-weight:700}
+
+/* TOPBAR */
+.topbar{position:sticky;top:0;z-index:40;display:flex;justify-content:space-between;align-items:center;
+  padding:16px 5%;background:var(--blanco);border-bottom:1px solid var(--gris-borde)}
+.topbar__title h1{font-size:1.25rem}
+.topbar__sub{color:var(--azul);font-size:.8rem;font-weight:600;letter-spacing:.03em}
+.topbar__right{display:flex;align-items:center;gap:16px}
+.topbar__contador{color:var(--gris-texto);font-size:.9rem;font-weight:600}
+.btn-filtros{position:relative;background:var(--negro);color:var(--blanco);border:none;border-radius:8px;
+  padding:10px 20px;font-weight:600;cursor:pointer;font-size:.9rem}
+.btn-filtros:hover{background:var(--azul)}
+.badge-filtros{background:var(--azul);border-radius:999px;padding:1px 7px;font-size:.72rem;margin-left:6px}
+
+/* PANEL DE FILTROS (drawer) */
+.overlay{position:fixed;inset:0;background:rgba(15,18,20,.4);z-index:45}
+.panel-filtros{position:fixed;top:0;right:-420px;width:400px;max-width:92vw;height:100vh;background:var(--blanco);
+  z-index:50;box-shadow:-8px 0 28px rgba(0,0,0,.15);transition:right .3s ease;display:flex;flex-direction:column}
+.panel-filtros.abierto{right:0}
+.panel-filtros__header{display:flex;justify-content:space-between;align-items:center;padding:20px 22px;
+  border-bottom:1px solid var(--gris-borde)}
+.btn-cerrar{background:none;border:none;font-size:1.1rem;cursor:pointer;color:var(--gris-texto)}
+.panel-filtros__body{padding:18px 22px;overflow-y:auto;flex:1}
+.filtro-grupo{margin-bottom:18px}
+.filtro-grupo label{display:block;font-size:.82rem;font-weight:700;margin-bottom:6px;color:var(--negro)}
+.filtro-grupo select{width:100%;border:1px solid var(--gris-borde);border-radius:8px;padding:6px;
+  font-size:.85rem;background:var(--blanco)}
+.filtro-grupo option{padding:3px 4px}
+.panel-filtros__footer{display:flex;gap:10px;padding:18px 22px;border-top:1px solid var(--gris-borde)}
+.btn-primario{flex:1;background:var(--azul);color:var(--blanco);border:none;border-radius:8px;padding:12px;
+  font-weight:700;cursor:pointer}
+.btn-primario:hover{background:#1f54c4}
+.btn-secundario{flex:1;background:var(--gris-fondo);color:var(--negro);border:1px solid var(--gris-borde);
+  border-radius:8px;padding:12px;font-weight:700;cursor:pointer}
+.btn-secundario:hover{background:var(--gris-borde)}
+
+/* SECCIONES */
+main{max-width:1200px;margin:0 auto;padding:0 5%}
+.seccion{padding:48px 0;border-bottom:1px solid var(--gris-borde)}
+.seccion__titulo{font-size:1.4rem;margin-bottom:4px}
+.seccion__subtitulo{color:var(--gris-texto);font-size:.92rem;margin-bottom:26px}
+
+/* KPIs */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:16px}
+.kpi{background:var(--blanco);border:1px solid var(--gris-borde);border-radius:12px;padding:20px;text-align:center}
+.kpi__num{display:block;font-size:1.7rem;font-weight:800;color:var(--azul)}
+.kpi__label{color:var(--gris-texto);font-size:.82rem}
+
+/* GRID DE GRÁFICAS */
+.grid-charts{display:grid;gap:20px}
+.grid-charts--2{grid-template-columns:1fr 1fr}
+.chart-card{background:var(--blanco);border:1px solid var(--gris-borde);border-radius:14px;padding:22px}
+.chart-card h3{font-size:1rem;margin-bottom:14px}
+.chart-card canvas{max-height:260px}
+.chart-card--alta canvas{max-height:340px}
+.chart-card__leyenda{margin-top:14px;font-size:.82rem;color:var(--gris-texto)}
+.chart-card__leyenda li{display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px dashed var(--gris-borde)}
+.chart-card__leyenda li span:last-child{font-weight:700;color:var(--negro)}
+
+.footer{text-align:center;padding:30px 5%;color:var(--gris-texto);font-size:.82rem}
+
+@media(max-width:820px){
+  .grid-charts--2{grid-template-columns:1fr}
+  .topbar__contador{display:none}
+}
